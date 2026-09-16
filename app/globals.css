@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --fresh-green: #075c2b;
+  --fresh-green-dark: #004d2b;
+  --fresh-green-light: #f1faf5;
+  --fresh-orange: #ff7200;
+  --fresh-border: #e6eee9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #123d2a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+}
+
+main {
+  width: 100%;
+  overflow: hidden;
+}
