@@ -8,7 +8,30 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
-export default function StoreSection() {
+type StoreInformation = {
+  address: string;
+  phone: string;
+  openingHours: string;
+  directionsLink: string;
+ storeImage?: {
+  url: string;
+};
+
+mapImage?: {
+  url: string;
+};
+};
+
+type StoreSectionProps = {
+  store: StoreInformation;
+};
+
+export default function StoreSection({
+  store,
+}: StoreSectionProps) {
+  const storeImageUrl = store.storeImage?.url;
+  const mapImageUrl = store.mapImage?.url;
+
   return (
     <section className="bg-white py-[10px] sm:py-[11px] lg:py-[12px]">
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10 xl:px-[45px]">
@@ -17,13 +40,20 @@ export default function StoreSection() {
 
           {/* STORE IMAGE */}
           <div className="relative min-h-[145px] overflow-hidden rounded-[8px] sm:min-h-[165px] lg:min-h-[175px]">
-            <Image
-              src="/images/store-front.png"
-              alt="FreshMart grocery store"
-              fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
-            />
+            {storeImageUrl ? (
+              <Image
+                src={`http://localhost:1337${storeImageUrl}`}
+                alt="FreshMart grocery store"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+                unoptimized
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center bg-[#F7FCF9] text-[10px] text-[#788B82]">
+                Store image unavailable
+              </div>
+            )}
           </div>
 
           {/* STORE INFORMATION */}
@@ -45,7 +75,7 @@ export default function StoreSection() {
               />
 
               <p className="text-[8px] leading-[1.35] text-[#315F48] sm:text-[9px]">
-                123 Main Road, Green Town, Lahore
+                {store.address}
               </p>
             </div>
 
@@ -57,7 +87,7 @@ export default function StoreSection() {
               />
 
               <p className="text-[8px] text-[#315F48] sm:text-[9px]">
-                +92 300 1234567
+                {store.phone}
               </p>
             </div>
 
@@ -69,38 +99,49 @@ export default function StoreSection() {
               />
 
               <p className="text-[8px] text-[#315F48] sm:text-[9px]">
-                Open Daily: 8:00 AM – 10:00 PM
+                {store.openingHours}
               </p>
             </div>
 
             {/* DIRECTIONS */}
-            <Link
-              href="/contact"
-              className="group mt-3 flex h-[29px] w-fit items-center gap-1.5 rounded-[6px] bg-[#079447] px-3 text-[8px] font-bold text-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#067B3B] hover:shadow-md sm:h-[30px] sm:text-[9px]"
-            >
-              <Navigation
-                className="h-[11px] w-[11px]"
-                strokeWidth={2}
-              />
+            {store.directionsLink && (
+              <Link
+                href={store.directionsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-3 flex h-[29px] w-fit items-center gap-1.5 rounded-[6px] bg-[#079447] px-3 text-[8px] font-bold text-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#067B3B] hover:shadow-md sm:h-[30px] sm:text-[9px]"
+              >
+                <Navigation
+                  className="h-[11px] w-[11px]"
+                  strokeWidth={2}
+                />
 
-              <span>Get Directions</span>
+                <span>Get Directions</span>
 
-              <ArrowUpRight
-                className="h-[10px] w-[10px] transition-transform duration-200 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]"
-                strokeWidth={2}
-              />
-            </Link>
+                <ArrowUpRight
+                  className="h-[10px] w-[10px] transition-transform duration-200 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]"
+                  strokeWidth={2}
+                />
+              </Link>
+            )}
           </div>
 
           {/* MAP */}
           <div className="relative min-h-[145px] overflow-hidden rounded-[8px] border border-[#E8EEE9] bg-[#F7FCF9] sm:min-h-[165px] lg:min-h-[175px]">
-            <Image
-              src="/images/store-map.png"
-              alt="FreshMart store location map"
-              fill
-              sizes="(max-width: 1024px) 100vw, 30vw"
-              className="object-cover"
-            />
+            {mapImageUrl ? (
+              <Image
+                src={`http://localhost:1337${mapImageUrl}`}
+                alt="FreshMart store location map"
+                fill
+                sizes="(max-width: 1024px) 100vw, 30vw"
+                className="object-cover"
+                unoptimized
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-[10px] text-[#788B82]">
+                Map unavailable
+              </div>
+            )}
           </div>
 
         </div>
